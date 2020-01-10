@@ -1,6 +1,9 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\Models\Country;
+use App\Models\City;
+use App\Models\State;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +24,19 @@ $factory->define(App\User::class, function (Faker $faker) {
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
     ];
+});
+$factory->define(Country::class, function (Faker $faker) {
+    return [
+        'name' => $faker->country,
+        ];
+});
+$factory->define(City::class, function (Faker $faker) {
+    return [
+        'name' => $faker->city,
+        ];
+});
+$factory->define(State::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        ];
 });

@@ -32,7 +32,7 @@ class CreateHotelsTable extends Migration
             $table->foreign('state_id')->references('id')->on('states')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('zip_code');
-            $table->string('address');
+            $table->string('address')->nullable();
 
             $table->timestamps();
         });

@@ -32,14 +32,17 @@ class HotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> Rule::notIn(["Free", "Offer", "Book", "Website"]),'required|min:10',
-            'rating' =>'min:0|max:5',
+            'name'=> 'required|min:10',Rule::notIn(["Free", "Offer", "Book", "Website"]),
+            'rating' =>'numeric|min:0|max:5',
             'category' => Rule::in(CategoryEnum::CATEGORIES),
             'zip_code' =>'required|integer|digits:5',
             'image' =>'mimes:jpeg,bmp,png',
             'reputation'=> 'required|integer|min:0|max:1000',
             'price' =>'required|integer',
             'availability' =>'required|integer',
+            'country_id'=>'required|exists:countries,id',
+            'city_id'=>'required|exists:cities,id',
+            'state_id'=>'required|exists:states,id'
 
 
         ];

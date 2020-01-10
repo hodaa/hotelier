@@ -32,7 +32,8 @@ class HotelController extends Controller
      */
     public function store(HotelRequest $request)
     {
-        dd($request->all());
+        Hotel::create($request->all());
+        return success("Hotel Created successfully",201);
     }
 
     /**
