@@ -11,6 +11,15 @@ function validateErrors($errors)
     return response()->json($data, 422);
 }
 
+function successWithResponse($data, $code = 200)
+{
+    $data = [
+        'status' => 'success',
+        'data' => $data,
+    ];
+    return response()->json($data, $code);
+}
+
 function success($message, $code=200)
 {
     $data = [

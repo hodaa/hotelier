@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HotelRequest;
 use App\Models\Hotel;
 use App\Http\Resources\HotelResource;
+use App\Repositories\HotelRepository;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
 {
+    private $hotelRepository;
+
+    public function __construct(HotelRepository $hotelRepository)
+    {
+        $this->hotelRepository = $hotelRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +24,9 @@ class HotelController extends Controller
      */
     public function index()
     {
-         $hotels=Hotel::all();
-         $hotelResource= new HotelResource($hotels);
-         return response()->json($hotelResource);
-
+        $hotels = $this->hotelRepository->getAllHotels();
+        $hotelResource = new HotelResource($hotels);
+        return successWithResponse($hotelResource);
     }
 
 
@@ -33,7 +40,7 @@ class HotelController extends Controller
     public function store(HotelRequest $request)
     {
         Hotel::create($request->all());
-        return success("Hotel Created successfully",201);
+        return success("Hotel Created successfully", 201);
     }
 
     /**
@@ -45,20 +52,10 @@ class HotelController extends Controller
     public function show($id)
     {
         $hotel = Hotel::find($id);
-        $hotelResource= new HotelResource($hotel);
+        $hotelResource = new HotelResource($hotel);
         return response()->json($hotelResource);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +66,10 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $hotel = Hotel::find($id);
+        $hotel->fill($request->all());
+
+        return response()->json($hotel);
     }
 
     /**
@@ -80,6 +80,8 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Hotel::find($id)->delete();
+
+        return success("Hotel deleted successfully", 200);
     }
 }
