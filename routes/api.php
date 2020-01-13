@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('hotels', 'HotelController');
+    Route::post('hotel/{id}/book', 'HotelController@book');
 });
 

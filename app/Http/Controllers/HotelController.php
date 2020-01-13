@@ -84,4 +84,18 @@ class HotelController extends Controller
 
         return success("Hotel deleted successfully", 200);
     }
+
+    /**
+     * @param $hotel_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function book($hotel_id)
+    {
+        $booked = $this->hotelRepository->book($hotel_id);
+        if ($booked) {
+            return success('Hotel booked successfssully');
+        }
+        return fail("Hotel fully booked", 422);
+    }
 }
+

@@ -17,4 +17,17 @@ class HotelRepository
 
         return $hotels;
     }
+
+    /**
+     * @param $hotel_id
+     * @return bool
+     */
+    public function book($hotel_id)
+    {
+        $hotel = Hotel::find($hotel_id);
+        if ($hotel->availability) {
+            return Hotel::find($hotel_id)->decrement('availability', 1);
+        }
+        return false;
+    }
 }
