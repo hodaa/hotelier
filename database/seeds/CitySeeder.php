@@ -13,13 +13,7 @@ class CitySeeder extends Seeder
     public function run()
     {
         City::insert([
-            [
-                'id' => 1,
-                'name' => 'Cairo'
-            ], [
-                'id' => 2,
-                'name' => 'Berlin'
-            ]
+            ['name' => 'Cairo'], ['name' => 'Berlin']
         ]);
     }
 }

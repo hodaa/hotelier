@@ -11,11 +11,6 @@ class bookHotelAPiTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp()
-    {
-        parent::setUp();
-
-    }
 
     /**
      * assert booked successfully
@@ -31,7 +26,7 @@ class bookHotelAPiTest extends TestCase
             "message" => "Hotel booked successfully"
         ]);
     }
-git
+
     /**
      * assert booked successfully
      *

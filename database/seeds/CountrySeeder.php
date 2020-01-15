@@ -13,13 +13,7 @@ class CountrySeeder extends Seeder
     public function run()
     {
         Country::insert([
-            [
-                'id' => 1,
-                'name' => 'Egypt'
-            ], [
-                'id' => 2,
-                'name' => 'Germany'
-            ]
+            ['name' => 'Egypt'], ['name' => 'Germany']
         ]);
     }
 }

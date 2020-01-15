@@ -13,13 +13,7 @@ class StateSeeder extends Seeder
     public function run()
     {
         State::insert([
-        [
-            'id' => 1,
-            'name' => 'state1'
-        ], [
-            'id' => 2,
-            'name' => 'state2'
-        ]
+        ['name' => 'state1'], ['name' => 'state2']
         ]);
     }
 }

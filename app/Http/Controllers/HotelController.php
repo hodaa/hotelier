@@ -7,7 +7,24 @@ use App\Models\Hotel;
 use App\Http\Resources\HotelResource;
 use App\Repositories\HotelRepository;
 use Illuminate\Http\Request;
+use OpenApi as OA;
 
+/**
+ * @OA\Info(title="My First API", version="0.1")
+ */
+
+/**
+ * @OA\Get(
+ *     path="/api/resource.json",
+ *     @OA\Response(response="200", description="An example resource")
+ * )
+ */
+
+/**
+ * Class HotelController
+ * @package App\Http\Controllers
+ *
+ */
 class HotelController extends Controller
 {
     private $hotelRepository;
@@ -18,15 +35,13 @@ class HotelController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $hotels = $this->hotelRepository->getAllHotels();
-        $hotelResource = new HotelResource($hotels);
-        return successWithResponse($hotelResource);
+
+        return successWithResponse($hotels);
     }
 
 
@@ -39,8 +54,11 @@ class HotelController extends Controller
      */
     public function store(HotelRequest $request)
     {
-        Hotel::create($request->all());
-        return success("Hotel Created successfully", 201);
+        $saved = $this->hotelRepository->saveHotel($request->all());
+        if ($saved) {
+            return success("Hotel Created successfully", 201);
+        }
+        return fail('Something went wrong', 500);
     }
 
     /**
@@ -49,11 +67,13 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        $hotel = Hotel::find($id);
-        $hotelResource = new HotelResource($hotel);
-        return response()->json($hotelResource);
+        $hotel = $this->hotelRepository->getHotelById($id);
+        if ($hotel) {
+            return success($hotel, 200);
+        }
+        return fail('Hotel Does not  exists', 404);
     }
 
 
@@ -64,12 +84,13 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(HotelRequest $request, $id)
     {
-        $hotel = Hotel::find($id);
-        $hotel->fill($request->all());
-
-        return response()->json($hotel);
+        $hotel = $this->hotelRepository->updateHotel($id, $request->all());
+        if ($hotel) {
+            return success(new HotelResource($hotel));
+        }
+        return fail('Something went wrong', 500);
     }
 
     /**
@@ -80,9 +101,12 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
-        Hotel::find($id)->delete();
+        $deleted = $this->hotelRepository->deleteHotel($id);
+        if ($deleted) {
+            return success("Hotel deleted successfully", 204);
+        }
 
-        return success("Hotel deleted successfully", 200);
+        return fail("something went wrong", 500);
     }
 
     /**
@@ -93,9 +117,8 @@ class HotelController extends Controller
     {
         $booked = $this->hotelRepository->book($hotel_id);
         if ($booked) {
-            return success('Hotel booked successfssully');
+            return success('Hotel booked successfully');
         }
         return fail("Hotel fully booked", 422);
     }
 }
-
