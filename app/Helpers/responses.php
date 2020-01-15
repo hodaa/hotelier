@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @param $errors
+ * @return \Illuminate\Http\JsonResponse
+ */
 function validateErrors($errors)
 {
     $data = [
@@ -11,6 +14,11 @@ function validateErrors($errors)
     return response()->json($data, 422);
 }
 
+/**
+ * @param $data
+ * @param int $code
+ * @return \Illuminate\Http\JsonResponse
+ */
 function successWithResponse($data, $code = 200)
 {
     $data = [
@@ -20,6 +28,11 @@ function successWithResponse($data, $code = 200)
     return response()->json($data, $code);
 }
 
+/**
+ * @param $message
+ * @param int $code
+ * @return \Illuminate\Http\JsonResponse
+ */
 function success($message, $code=200)
 {
     $data = [
@@ -28,10 +41,16 @@ function success($message, $code=200)
     ];
     return response()->json($data, $code);
 }
+
+/**
+ * @param $message
+ * @param $code
+ * @return \Illuminate\Http\JsonResponse
+ */
 function fail($message, $code)
 {
     $data = [
-        'status' => 'success',
+        'status' => 'fail',
         'message' => $message,
     ];
     return response()->json($data, $code);

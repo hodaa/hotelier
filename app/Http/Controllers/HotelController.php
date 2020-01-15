@@ -3,27 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\HotelRequest;
-use App\Models\Hotel;
 use App\Http\Resources\HotelResource;
 use App\Repositories\HotelRepository;
-use Illuminate\Http\Request;
-use OpenApi as OA;
-
-/**
- * @OA\Info(title="My First API", version="0.1")
- */
-
-/**
- * @OA\Get(
- *     path="/api/resource.json",
- *     @OA\Response(response="200", description="An example resource")
- * )
- */
 
 /**
  * Class HotelController
  * @package App\Http\Controllers
- *
  */
 class HotelController extends Controller
 {
@@ -84,7 +69,7 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(HotelRequest $request, $id)
+    public function update(HotelRequest $request,int  $id)
     {
         $hotel = $this->hotelRepository->updateHotel($id, $request->all());
         if ($hotel) {
@@ -99,7 +84,7 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $deleted = $this->hotelRepository->deleteHotel($id);
         if ($deleted) {
@@ -113,7 +98,7 @@ class HotelController extends Controller
      * @param $hotel_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function book($hotel_id)
+    public function book(int $hotel_id)
     {
         $booked = $this->hotelRepository->book($hotel_id);
         if ($booked) {

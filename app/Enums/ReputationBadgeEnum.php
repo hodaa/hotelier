@@ -2,14 +2,15 @@
 
 namespace App\Enums ;
 
-class ReputationBadgeEnum{
+class ReputationBadgeEnum extends  Enum
+{
     const RED = 1;
     const ORANGE = 2;
     const GREEN = 3;
 
-    const REPUTATION_BADGES =[
-        self::RED,
-        self::ORANGE,
-        self::GREEN,
+    public static $reputation_badges =[
+        self::RED  => 'Red',
+        self::ORANGE => 'Orange',
+        self::GREEN => 'Green',
     ];
 }

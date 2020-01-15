@@ -69,6 +69,7 @@ class CreateHotelTest extends TestCase
 
 
         ]);
+
         $response->assertStatus(201)->assertJson([
             "status" => "success",
             "message" => "Hotel Created successfully"

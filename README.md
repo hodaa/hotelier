@@ -38,19 +38,22 @@ Execute the following command in your project root :
 
 ## Built With
 
-* Laravel framework
+* [Laravel](https://laravel.com/)
 * [PHPunit](https://phpunit.de/) Used to generate unit testing
+* [swagger 3](https://swagger.io/)
 
 
-##commits
+## Commits history
+
+* Design Api using swagger
 * setup database structure and migration and seeder
+* create validation layer
 * add apis with test
 * add book api 
 
-## Authors
 
-* **Hoda Hussin** -- (https://github.com/hodaa)
 
-## License
+### Documentation
+you can see Api documentation on this url
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+      {url}/api/documentation

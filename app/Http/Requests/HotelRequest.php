@@ -3,14 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Enums\CategoryEnum;
+use App\Enums\ReputationBadgeEnum;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
-
-
-
-
 
 class HotelRequest extends FormRequest
 {
@@ -25,16 +22,16 @@ class HotelRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array
+     * @throws \ReflectionException
      */
     public function rules()
     {
+
         return [
             'name' => 'required|min:10',Rule::notIn(["Free", "Offer", "Book", "Website"]),
             'rating' => 'numeric|min:0|max:5',
-            'category' => ['required',Rule::in(CategoryEnum::CATEGORIES)],
+            'category' => ['required', Rule::in(CategoryEnum::getConstList()) ],
             'zip_code' => 'required|integer|digits:5',
             'image' => 'mimes:jpeg,bmp,png',
             'reputation' => 'required|integer|min:0|max:1000',
@@ -48,11 +45,11 @@ class HotelRequest extends FormRequest
         ];
     }
 
+    /**
+     * @param Validator $validator
+     */
     protected function failedValidation(Validator $validator)
     {
-        if ($validator->fails()) {
-            throw new HttpResponseException(validateErrors($validator->errors()->all()));
-        }
-
+        throw new HttpResponseException(validateErrors($validator->errors()->all()));
     }
 }

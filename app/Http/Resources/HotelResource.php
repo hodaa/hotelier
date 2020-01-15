@@ -12,10 +12,9 @@ use App\Enums\ReputationBadgeEnum;
 class HotelResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
+     * @throws \ReflectionException
      */
     public function toArray($request)
     {
@@ -24,8 +23,8 @@ class HotelResource extends JsonResource
             'name' => $this->name,
             'rating' => $this->rating,
             'image' => url($this->image),
-            'reputation' => ReputationBadgeEnum::REPUTATION_BADGES[$this->reputation],
-            'category' => CategoryEnum::CATEGORIES[$this->category],
+            'reputation' => ReputationBadgeEnum::$reputation_badges[$this->reputation],
+            'category' => CategoryEnum::$categories[$this->category],
             'price' => $this->price,
             'availability' => $this->availability,
             'country' => Country::where('id', $this->country_id)->first()->name,
