@@ -1,5 +1,5 @@
 
-# Travigo-api
+# hotelier-api
 
 API retrieves the Hotels Data
 
